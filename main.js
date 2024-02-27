@@ -44,7 +44,7 @@ function constructPriceMap(tile_costs) {
 app.use(bodyParser.json());
 
 app.post("/", (req, res) => {
-    console.log(req.body);
+    console.log("Recieved:", req.body);
 
     // Verify body contents
     const checkArr = [req.body.tile_costs, req.body.tile_layout];
@@ -56,7 +56,7 @@ app.post("/", (req, res) => {
             );
             console.error(typeof arr);
             console.error(arr);
-            res.sendStatus(404);
+            res.sendStatus(400);
             return;
         }
         // Check that these arrays contain only arrays
@@ -65,7 +65,7 @@ app.post("/", (req, res) => {
                 console.error("Layout or Cost arrays do not contain arrays");
                 console.error(typeof arrarr);
                 console.error(arrarr);
-                res.sendStatus(404);
+                res.sendStatus(400);
                 return;
             }
             // Check that the nested arrays only contain numbers
@@ -76,7 +76,7 @@ app.post("/", (req, res) => {
                     );
                     console.error(typeof num);
                     console.error(num);
-                    res.sendStatus(404);
+                    res.sendStatus(400);
                     return;
                 }
             }
@@ -158,7 +158,7 @@ app.post("/", (req, res) => {
         response.price_monthly += monthly;
     }
 
-    console.log(response);
+    console.log("Replied with:", response);
 
     res.send(JSON.stringify(response));
 });
